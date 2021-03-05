@@ -1,26 +1,39 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
+import AddThoughtForm from './addThoughtForm';
 
-const Thought = ({dariApp, hapus}) => {
+
+const Thought = ({ dariApp, hapus, updateList }) => {
+  const [edit, setEdit] = useState({
+    id: null,
+    text: ''
+  })
 
 
+  const submitUpdate = text => {
+    updateList(edit.id, text)
+  }
 
   const handleRemoveClick = () => {
     hapus(dariApp.id);
   };
 
-  const timeRemaining = dariApp.expiresAt - Date.now();
+  if (edit.text) {
+    return  <AddThoughtForm edit={edit} tambah={submitUpdate}/>
+  }
 
-useEffect(() => {
-  
-const time = setTimeout(() => {
-  alert('line will deleted')
-  hapus(dariApp.id)
-  }, timeRemaining)
+  //const timeRemaining = dariApp.expiresAt - Date.now();
 
-return () => {
-  clearTimeout(time)
-}
-}, [dariApp , hapus, timeRemaining])
+  // useEffect(() => {
+
+  // const time = setTimeout(() => {
+  //   alert('line will deleted')
+  //   hapus(dariApp.id)
+  //   }, timeRemaining)
+
+  // return () => {
+  //   clearTimeout(time)
+  // }
+  // }, [dariApp , hapus, timeRemaining])
 
 
   return (
@@ -32,12 +45,18 @@ return () => {
       >
         &times;
       </button>
-    
+      <button
+        aria-label="Remove thought"
+        className="edit-button"
+        onClick={() => setEdit({ id: dariApp.id, text: dariApp.text })}
+      >
+        &hearts;
+      </button>
+
       <div className="text">  <span className='num'>{dariApp.num}</span>. {dariApp.text}</div>
-     <div className="text">{timeRemaining}</div>
 
     </li>
   );
 }
- 
+
 export default Thought

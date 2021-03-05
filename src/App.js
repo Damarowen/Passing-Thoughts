@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AddThoughtForm  from './Component/addThoughtForm';
+import AddThoughtForm from './Component/addThoughtForm';
 import Thought from './Component/Thought';
 // import { generateId, getNewExpirationTime } from './Component/Utilities';
 
@@ -21,16 +21,20 @@ const App = () => {
   ]);
 
 
-const add = (value) => {
-setThoughts(prev => [value, ...prev])
-console.log(value)
-}
+  const add = value => {
+    setThoughts(prev => [value, ...prev])
+  }
 
-const remove = (id) => {
-  setThoughts(all =>
-    all.filter(cari => cari.id !== id)
-  );
-};
+  const remove = id => {
+    setThoughts(all =>
+      all.filter(cari => cari.id !== id)
+    );
+  };
+
+  const updateList = (id, newVal) => {
+    {console.log(newVal)}
+    setThoughts(prev => prev.map(item => item.id === id ? newVal : item))
+  }
 
   return (
     <div className="App">
@@ -38,13 +42,14 @@ const remove = (id) => {
         <h1>Passing Thoughts</h1>
       </header>
       <main>
-        <AddThoughtForm tambah={add}/>
+        <AddThoughtForm tambah={add} />
         <ul className="thoughts">
           {thoughts.map((thought) => (
-            <Thought 
-            key={thought.id} 
-            dariApp={thought} 
-            hapus={remove}
+            <Thought
+              key={thought.id}
+              dariApp={thought}
+              hapus={remove}
+              updateList={updateList}
             />
           ))}
         </ul>

@@ -62,7 +62,7 @@ button {
 font-weight: 500;
 }
 
-.Thought .remove-button {
+.Thought .remove-button, .edit-button {
   font-size: 80%;
   float: right;
   border: 0;
@@ -70,7 +70,7 @@ font-weight: 500;
   background: transparent;
 }
 
-.Thought .remove-button:hover {
+.Thought .remove-button:hover, .edit-button:hover {
   color: #fff;
   background-color: #000;
 }
