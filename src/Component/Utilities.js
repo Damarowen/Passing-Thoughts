@@ -1,4 +1,5 @@
 export function getNewExpirationTime() {
+  //*15 detik
     return Date.now() + 15 * 1000;
   }
   

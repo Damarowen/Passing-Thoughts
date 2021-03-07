@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AddThoughtForm from './Component/addThoughtForm';
-import Thought from './Component/Thought';
+import AddThoughtForm from './Component/TodoForm';
+import Thought from './Component/Todo';
 // import { generateId, getNewExpirationTime } from './Component/Utilities';
 
 const App = () => {
@@ -32,14 +32,13 @@ const App = () => {
   };
 
   const updateList = (id, newVal) => {
-    {console.log(newVal)}
     setThoughts(prev => prev.map(item => item.id === id ? newVal : item))
   }
 
   return (
     <div className="App">
       <header>
-        <h1>Passing Thoughts</h1>
+        <h1>What Are You Gonna Do ?</h1>
       </header>
       <main>
         <AddThoughtForm tambah={add} />
@@ -50,6 +49,7 @@ const App = () => {
               dariApp={thought}
               hapus={remove}
               updateList={updateList}
+              xx={thought}
             />
           ))}
         </ul>
