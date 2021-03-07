@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTimes } from 'react-icons/fa'
-import AddThoughtForm from './TodoForm';
+import TodoForm from './TodoForm';
 
 
 const Todo = ({ dariApp, hapus, updateList, data }) => {
@@ -41,7 +41,7 @@ const Todo = ({ dariApp, hapus, updateList, data }) => {
   })
 
   if (edit.text) {
-    return <AddThoughtForm edit={edit} tambah={submitUpdate} />
+    return <TodoForm edit={edit} tambah={submitUpdate} data={data} />
   }
 
 
