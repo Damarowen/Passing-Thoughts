@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { FaEdit, FaTimes } from 'react-icons/fa'
 import AddThoughtForm from './addThoughtForm';
 
 
 const Thought = ({ dariApp, hapus, updateList }) => {
   const [edit, setEdit] = useState({
     id: null,
+    num: 0,
     text: ''
   })
+
+  const [ completed, setCompleted ] = useState(false)
 
 
   const submitUpdate = text => {
@@ -37,23 +41,25 @@ const Thought = ({ dariApp, hapus, updateList }) => {
 
 
   return (
-    <li className="Thought">
+    <li className={completed ? ' Thought completed ' : ' Thought'} >
       <button
         aria-label="Remove thought"
         className="remove-button"
         onClick={handleRemoveClick}
       >
-        &times;
+<FaTimes/>
       </button>
       <button
         aria-label="Remove thought"
         className="edit-button"
-        onClick={() => setEdit({ id: dariApp.id, text: dariApp.text })}
+        onClick={() => setEdit({ id: dariApp.id, num: dariApp.num, text: dariApp.text })}
       >
-        &hearts;
+        <FaEdit/>
       </button>
 
-      <div className="text">  <span className='num'>{dariApp.num}</span>. {dariApp.text}</div>
+      <div className="text"  onClick={() => setCompleted(!completed ? true : false)}> 
+       <span className='num'>{dariApp.num}</span>. {dariApp.text}
+       </div>
 
     </li>
   );

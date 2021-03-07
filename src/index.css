@@ -56,6 +56,12 @@ button {
   margin-bottom: 1rem;
   border-radius: 3px;
   background-color: #eee;
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: red;
 }
 
 .Thought .num {

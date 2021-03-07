@@ -14,22 +14,34 @@ const AddThoughtForm = ({ tambah, edit }) => {
     setText(target.value)
   }
 
+  console.log(edit)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(1, text)
-    setNums(prev => prev + 1)
-    //* tambah({id, num, text, expiresAt})
+
+    let data;
     
-    const thought = {
-      id: generateId(),
-      num: nums,
-      text: text,
-      expiresAt: getNewExpirationTime()
+    if(edit){
+      data = {
+        id: generateId(),
+        num: edit.num,
+        text: text,
+        expiresAt: getNewExpirationTime()
+      }
+    } else {
+      setNums(prev => prev + 1)
+      //* tambah({id, num, text, expiresAt})
+      data = {
+        id: generateId(),
+        num: nums,
+        text: text,
+        expiresAt: getNewExpirationTime()
+      }
     }
+   
     setText('')
     //* verification
-    thought.text.length > 0 ? tambah(thought) : alert(' please add text')
+    data.text.length > 0 ? tambah(data) : alert(' please add text')
 
   }
 
@@ -39,8 +51,7 @@ const AddThoughtForm = ({ tambah, edit }) => {
     <input
       ref={inputRef}
       type="text"
-      aria-label="What's on your mind?"
-      placeholder="What's on your mind?"
+z      placeholder="What's on your mind?"
       value={text}
       onChange={handleTextChange}
     />
