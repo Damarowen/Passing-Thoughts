@@ -1,14 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { generateId, getNewExpirationTime } from './Utilities';
+import { generateId } from './Utilities';
 
-const AddThoughtForm = ({ tambah, edit }) => {
+const TodoForm = ({ tambah, edit, data }) => {
+
   const inputRef = useRef(null)
   const [nums, setNums] = useState(1)
   const [text, setText] = useState(edit ? edit.text : '')
-
   useEffect(() => {
     inputRef.current.focus()
-  })
+    if (data(data).length === 0) {
+      setNums(1)
+    }
+  }, [data])
 
   const handleTextChange = ({ target }) => {
     setText(target.value)
@@ -17,38 +20,32 @@ const AddThoughtForm = ({ tambah, edit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let data;
+    let datax;
 
     if (text.length > 0) {
 
       if (edit) {
-        data = {
+        datax = {
           id: generateId(),
           num: edit.num,
-          text: text,
-          expiresAt: getNewExpirationTime()
+          text: text
         }
       } else {
-        setNums(prev => prev + 1)
-
+        setNums(nums + 1)
         //* tambah({id, num, text, expiresAt})
-        data = {
+        datax = {
           id: generateId(),
           num: nums,
-          text: text,
-          expiresAt: getNewExpirationTime()
+          text: text
         }
       }
 
-      tambah(data)
+      tambah(datax)
+      setText('')
 
     } else {
       alert(' please add text')
     }
-    console.log(nums)
-    setText('')
-    //* verification
-    // data.text.length > 0 ? tambah(data) : 
   }
 
   let body, input
@@ -88,4 +85,4 @@ const AddThoughtForm = ({ tambah, edit }) => {
   );
 }
 
-export default AddThoughtForm;
+export default TodoForm;

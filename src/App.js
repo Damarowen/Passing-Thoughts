@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AddThoughtForm from './Component/TodoForm';
-import Thought from './Component/Todo';
+import TodoForm from './Component/TodoForm';
+import Todo from './Component/Todo';
 // import { generateId, getNewExpirationTime } from './Component/Utilities';
 
 const App = () => {
@@ -35,21 +35,28 @@ const App = () => {
     setThoughts(prev => prev.map(item => item.id === id ? newVal : item))
   }
 
+
+  const data = () => {
+  let val = thoughts.map(x => x)
+  return val
+    }
+
+
   return (
     <div className="App">
       <header>
         <h1>What Are You Gonna Do ?</h1>
       </header>
       <main>
-        <AddThoughtForm tambah={add} />
+        <TodoForm tambah={add} data={data}  />
         <ul className="thoughts">
           {thoughts.map((thought) => (
-            <Thought
+            <Todo
               key={thought.id}
               dariApp={thought}
               hapus={remove}
               updateList={updateList}
-              xx={thought}
+              data={data}
             />
           ))}
         </ul>

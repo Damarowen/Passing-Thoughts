@@ -3,35 +3,9 @@ import { FaEdit, FaTimes } from 'react-icons/fa'
 import AddThoughtForm from './TodoForm';
 
 
-const Thought = ({ dariApp, hapus, updateList }) => {
+const Todo = ({ dariApp, hapus, updateList, data }) => {
 
   const [seconds, setSeconds] = useState(15)
- 
-  useEffect(() => {
-    const time = setTimeout(() => {
-      console.log('line will deleted')
-    }, 15000)
-
-    let myInterval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-      if (seconds  === 0) {
-        hapus(dariApp.id)
-      console.log('line will deleted')
-      }
-     
-    }, 1000)
-    return () => {
-      clearInterval(myInterval);
-      clearTimeout(time)
-    };
-
-
-
-  })
-
-
   const [completed, setCompleted] = useState(false)
 
   const [edit, setEdit] = useState({
@@ -49,12 +23,26 @@ const Thought = ({ dariApp, hapus, updateList }) => {
     hapus(dariApp.id);
   };
 
+  useEffect(() => {
+    //* use setInterval instead setTimeout
+    const myInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(prev => prev - 1);
+      }
+      if (seconds === 1) {
+        hapus(dariApp.id)
+      }
+
+    }, 1000)
+    return () => {
+      clearInterval(myInterval);
+    };
+
+  })
+
   if (edit.text) {
     return <AddThoughtForm edit={edit} tambah={submitUpdate} />
   }
-
-
-
 
 
   return (
@@ -85,4 +73,4 @@ const Thought = ({ dariApp, hapus, updateList }) => {
   );
 }
 
-export default Thought
+export default Todo;
